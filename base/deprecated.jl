@@ -843,6 +843,7 @@ for f in (:remotecall, :remotecall_fetch, :remotecall_wait)
     end
 end
 
+#13465
 @deprecate cov(x::AbstractVector; corrected=true, mean=nothing) covm(x, mean, corrected)
 @deprecate cov(X::AbstractMatrix; vardim=1, corrected=true, mean=nothing) covm(X, mean, vardim, corrected)
 @deprecate cov(x::AbstractVector, y::AbstractVector; corrected=true, mean=nothing) covm(x, mean[1], y, mean[2], corrected)
@@ -852,3 +853,6 @@ end
 @deprecate cor(X::AbstractMatrix; vardim=1, mean=nothing) corm(X, mean, vardim)
 @deprecate cor(x::AbstractVector, y::AbstractVector; mean=nothing) corm(x, mean[1], y, mean[2])
 @deprecate cor(X::AbstractVecOrMat, Y::AbstractVecOrMat; vardim=1, mean=nothing) corm(X, mean[1], Y, mean[2], vardim)
+
+#13496
+@deprecate A_ldiv_B!(A::SparseMatrixCSC, B::StridedVecOrMat) A_ldiv_B!(factorize(A), B)
