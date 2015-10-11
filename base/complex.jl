@@ -544,7 +544,7 @@ end
     n>=0 ? power_by_squaring(z,n) : power_by_squaring(inv(z),-n)
 ^{T<:Integer}(z::Complex{T}, n::Integer) = power_by_squaring(z,n) # DomainError for n<0
 
-function sin(z::Complex)
+function sin{T<:AbstractFloat}(z::Complex{T})
     zr, zi = reim(z)
     if !isfinite(zi) && zr == 0 return Complex(zr, zi) end
     if isnan(zr) && !isfinite(zi) return Complex(zr, zi) end
@@ -554,7 +554,9 @@ function sin(z::Complex)
     Complex(sin(zr)*cosh(zi), cos(zr)*sinh(zi))
 end
 
-function cos(z::Complex)
+sin(z::Complex) = sin(float(z))
+
+function cos{T<:AbstractFloat}(z::Complex{T})
     zr, zi = reim(z)
     if !isfinite(zi) && zr == 0
         return Complex(isnan(zi) ? zi : oftype(zi, Inf),
@@ -569,6 +571,8 @@ function cos(z::Complex)
     if isnan(zr) && zi==0 return Complex(zr, abs(zi)) end
     Complex(cos(zr)*cosh(zi), -sin(zr)*sinh(zi))
 end
+
+cos(z::Complex) = cos(float(z))
 
 function tan(z::Complex)
     zr, zi = reim(z)
